@@ -6,6 +6,7 @@ class Point:
     def __init__(self, a=0, b=0):
         self.x = a
         self.y = b
+'''
 class Record:
     def __init__(self, point1, point2):
         self.point1 = point1
@@ -82,6 +83,48 @@ class Solution:
         #r2 = Record(Point(3,4),Point(5,6))
         #if (r1.compP(r2)):
         #   print("bbb")
+'''
+
+class Solution:
+    # @param points, a list of Points
+    # @return an integer
+        def maxPoints(self, points):
+            if len(points) <= 2:
+                return len(points)
+            max_count = 0
+            for i in range(0,len(points)):
+
+                dup = 1
+                kMap = {}
+                infin = 0
+
+                pointI = points[i]
+                for j in range(i+1, len(points)):
+                    pointJ = points[j]
+
+                    if pointI.x == pointJ.x and pointI.y == pointJ.y:
+                        dup += 1
+                        continue
+                    if pointI.x == pointJ.x:
+                        infin += 1
+                    else:
+                        k = (float)(pointJ.y - pointI.y) / (pointJ.x - pointI.x)
+                        if k in kMap:
+                            kMap[k] += 1
+                        else:
+                            kMap[k] = 1
+                t = [kMap[a1] for a1 in kMap]
+                if len(t):
+                    maxF = max(t)
+                else:
+                    maxF = 0
+                if infin > maxF:
+                    maxF = infin
+                if maxF + dup > max_count:
+                    max_count = maxF + dup
+            return max_count
+
+
 
 
 
